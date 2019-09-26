@@ -1,0 +1,9 @@
+<!doctype html>
+<title>RTL433 Sensor Monitor</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<section class="content">
+  <h1>Welcome to RTL Sensor Monitor</h1>
+  <p>I'm a python wrapper for the <a href="https://github.com/merbanan/rtl_433">rtl_433</a> command line utility to make the received sensor data available via HTTP</p>
+  <p>For prometheus metrics, see <a href="/metrics">/metrics</a></p>
+  <p>For all of the raw sensor data I've picked up, see <a href="/sensors">/sensors</a>, or if you are a machine try <a href="/sensors.json">/sensors.json</a></p>
+</section>
