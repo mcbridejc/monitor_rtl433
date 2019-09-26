@@ -4,6 +4,7 @@ from .server import create_app
 from .rtl433 import rtl433
 import threading
 import time
+import os
 
 def run(metric_descriptions=None, metric_filters=None):
     if metric_descriptions is None:
@@ -32,10 +33,12 @@ def run(metric_descriptions=None, metric_filters=None):
     rx_thread = threading.Thread(target=rx_thread_entry, daemon=True)
     rx_thread.start()
 
+    host = os.getenv('MONITOR_RTL433_HOST', None)
+    port = os.getenv('MONITOR_RTL433_PORT', None)
     def http_thread_entry():
         try:
             app = create_app(db,  metric_maker)
-            app.run()
+            app.run(host=host, port=port)
         except:
             error_event.set()
             raise
