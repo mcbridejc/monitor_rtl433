@@ -12,7 +12,7 @@ setup(name='monitor_rtl433',
           'console_scripts': ['monitor_rtl433=monitor_rtl433.main:main']
       },
       install_requires=[
-         'python-dateutils',
+         'python-dateutil',
          'flask',
          'flask_table'
       ]
