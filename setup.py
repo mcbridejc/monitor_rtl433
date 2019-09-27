@@ -15,7 +15,9 @@ setup(name='monitor_rtl433',
          'python-dateutil',
          'flask',
          'flask_table'
-      ]
+      ],
+      include_package_data=True,
+      package_data={'': ['*/*.html', '*/*.css']},
     )
 
     
