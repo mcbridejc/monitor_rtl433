@@ -1,7 +1,8 @@
 from monitor_rtl433 import run
 from monitor_rtl433.metrics import Metric, MetricFilter, MetricDescription
 
-DEGC2F = (9.0/5.0 + 32.0)
+def degc2f(x):
+    return x * 9.0/5.0 + 32.0
 
 class AcuriteTower(MetricFilter):
     def __init__(self, id):
@@ -14,22 +15,7 @@ class AcuriteTower(MetricFilter):
         """Takes a single sensor record, and converts it to 0 or more metrics
         """
         sensor_id = "%s%s" % (str(self.id), r['channel']) 
-        yield Metric('temperature', r['temperature_C']*DEGC2F, labels={'sensor_id': sensor_id})
-        yield Metric('humidity', r['humidity'], labels={'sensor_id': sensor_id})
-        yield Metric('battery_warning', r['battery_low'], labels={'sensor_id': sensor_id})
-
-class AcuriteTower(MetricFilter):
-    def __init__(self, id):
-        self.id = id
-        # The `_match` property will be used to determine which sensor records
-        # this filter will be applied to
-        self._match = {"model": "Acurite tower sensor", "id" : self.id}
-
-    def process(self, r):
-        """Takes a single sensor record, and converts it to 0 or more metrics
-        """
-        sensor_id = "%s%s" % (str(self.id), r['channel'])
-        yield Metric('temperature', r['temperature_C']*DEGC2F, labels={'sensor_id': sensor_id})
+        yield Metric('temperature', degc2f(r['temperature_C']), labels={'sensor_id': sensor_id})
         yield Metric('humidity', r['humidity'], labels={'sensor_id': sensor_id})
         yield Metric('battery_warning', r['battery_low'], labels={'sensor_id': sensor_id})
 
@@ -48,7 +34,7 @@ class LaCrosse(MetricFilter):
         else:
             battery_warning = 99 # Unrecognized. (I'm not sure right now what all the battery field options are)
 
-        yield Metric('temperature', r['temperature_C']*DEGC2F, labels={'sensor_id': sensor_id})
+        yield Metric('temperature', degc2f(r['temperature_C']), labels={'sensor_id': sensor_id})
         yield Metric('humidity', r['humidity'], labels={'sensor_id': sensor_id})
         yield Metric('battery_warning', battery_warning, labels={'sensor_id': sensor_id})
 
