@@ -8,6 +8,7 @@ setup(name='monitor_rtl433',
       author='Jeff McBride',
       author_email='jeff@jeffmcbride.net',
       packages=find_packages(),
+      zip_safe=False,
       entry_points={
           'console_scripts': ['monitor_rtl433=monitor_rtl433.main:main']
       },
