@@ -41,6 +41,7 @@ def create_app(sensor_db, metric_maker):
             } 
             for s in sensor_db.all()
         ]
+        items = sorted(items, key=lambda x: x['time'], reverse=True)
         table = SensorTable(items)
         return flask.render_template('sensors.html', sensor_table=table)
     return app
